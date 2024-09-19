@@ -1,55 +1,49 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
 
-// export const POST = async (req: NextRequest, res: NextResponse) => {
-//   try {
-//     const client = new OpenAI({
-//       baseURL: process.env.BASE_URL as string,
-//       apiKey: "",
-//     });
-
-//     const { advisor, message } = await req.json();
-
-//     const aiResponse = await client.chat.completions.create({
-//       model: "Meta-Llama-3-8B-Instruct-Q5_K_M",
-//       messages: [
-//         {
-//           role: "system",
-//           content: `You are ${advisor}. Someone is asking you for financial advice. Respond in your personal style.`,
-//         },
-//         {
-//           role: "user",
-//           content: message,
-//         },
-//       ],
-
-//       temperature: 0.7,
-//       max_tokens: 500,
-//     });
-//     return NextResponse.json({
-//       response: aiResponse.choices[0].message.content,
-//     });
-//   } catch (error) {
-//     console.error("an error occured", error);
-//     return NextResponse.json("some error occurred", { status: 500 });
-//   }
-// };
 
 export const POST = async (req: NextRequest) => {
-  const { messages } = await req.json();
-
-  try {
-    const payload: FinanceAIStreamPayload = {
-      model: "llama",
-      messages,
-      stream: true,
-      temperature: 0.7,
-    };
-    const stream = await FinanceAdvisorAIStream(payload);
-    return NextResponse.json(stream);
-  } catch (error) {
+  const { advisor, messages } = await req.json();
+  if (!advisor || !messages) {
     return NextResponse.json(
-      { message: "Error, answer stream failed" },
+      { error: "Advisor and messages are required" },
+      { status: 400 }
+    );
+  }
+  let systemMessage;
+  if (advisor === "warren_buffett") {
+    systemMessage =
+      "You are Warren Buffett. Someone is asking you for financial advice. Respond in your personal style.";
+  } else if (advisor === "ray_dalio") {
+    systemMessage =
+      "You are Ray Dalio. Someone is asking you for financial advice. Respond in your personal style.";
+  } else {
+    return NextResponse.json({ error: "Advisor not found" }, { status: 404 });
+  }
+
+  const payload = {
+    messages: [
+      { role: "system", content: systemMessage },
+      { role: "user", content: messages },
+    ],
+  };
+  try {
+    const res = await fetch(
+      "https://llama.us.gaianet.network/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+    const data = await res.json();
+    return NextResponse.json({ response: data.choices[0].message.content });
+  } catch (error) {
+    console.log("Error", error);
+    return NextResponse.json(
+      { message: "Internal server error" },
       { status: 500 }
     );
   }
