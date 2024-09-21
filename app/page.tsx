@@ -3,39 +3,41 @@
 import { useState } from "react";
 
 const AdvisePage = () => {
-  const [message, setMessage] = useState("");
+        const [message, setMessage] = useState("");
 
-  const [buffetResponse, setBuffetResponse] = useState("");
+        const [response, setResponse] = useState("");
 
-  const [dalioResponse, setDalioResponse] = useState("");
+        const [advisor, setAdvisor] = useState("");
 
-  const handleSendMessage = async () => {
-    const res = await fetch("/api/financial-guide", {
-      method: "POST",
-      body: JSON.stringify({ message }),
-    });
-    const data = await res.json();
-    setBuffetResponse(data.warren_buffet);
-    setDalioResponse(data.ray_dalio);
-  };
-  return (
-    <div>
-      <h1>Ask for financial guidance</h1>
-      <input
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Ask for financial guidance"
-      />
-      <button onClick={handleSendMessage}>Get Guidance</button>
-      <div>
-        <h2>Warren Buffet's Guidance</h2>
-        <p>{buffetResponse}</p>
-        <h2>Ray Dalio's Guidance</h2>
-        <p>{dalioResponse}</p>
-      </div>
-    </div>
-  );
+        const handleChooseAdvisor = (selecetedAdvisor) => {
+
+                setAdvisor(selecetedAdvisor)
+        }
+
+        const handleSendMessage = async () => {
+                const res = await fetch("/api/financial-guide", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ advisor, message }),
+                });
+                const data = await res.json();
+                setResponse(data.response)
+        };
+        return (
+
+                // TODO: Add dropdown button to  choose the advisor
+                <div>
+                        <h1>Ask for financial guidance</h1>
+                        <input
+                                type="text"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                placeholder="Ask for financial guidance"
+                        />
+                        <button onClick={handleSendMessage}>Get Guidance</button>
+                        <p>{response}</p>
+                </div>
+        );
 };
 
 export default AdvisePage;
