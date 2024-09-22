@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+         "cus-white": "hsl(0,0%,100%)",
       },
     },
   },
