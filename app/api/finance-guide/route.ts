@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 export const POST = async (req: NextRequest) => {
-  const { advisor, messages } = await req.json();
-  if (!advisor || !messages) {
+  const { advisor, message } = await req.json();
+  if (!advisor || !message) {
     return NextResponse.json(
       { error: "Advisor and messages are required" },
       { status: 400 }
@@ -23,7 +23,7 @@ export const POST = async (req: NextRequest) => {
   const payload = {
     messages: [
       { role: "system", content: systemMessage },
-      { role: "user", content: messages },
+      { role: "user", content: message },
     ],
   };
   try {
