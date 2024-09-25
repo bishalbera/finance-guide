@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">FinTwin Advisor 🧠💸</h1>
+<p align="center">A Financial Advisor Powered by Digital Twins of Warren Buffett & Ray Dalio
+</p>
 
-## Getting Started
+<h2>Overview</h2>
+<p>FinTwin Advisor is an AI-powered platform that brings financial insights to users by simulating conversations with legendary financial figures like Warren Buffett and Ray Dalio. Users can interact with their "digital twins," receiving personalized investment advice, strategic insights, and much more.
 
-First, run the development server:
+This project demonstrates the power of decentralized AI, using agents that mimic real-world experts. The system leverages clusters of agents to simulate both collaboration and contrasting viewpoints from financial icons, giving users a unique experience.</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
+- 🧑‍💼 Choose Your Advisor: Chat with the "digital twin" of either Warren Buffett or Ray Dalio, each providing unique perspectives on financial strategies.
+  
+- 💬 Natural Language Interaction: Seamlessly interact with advisors via a conversational interface that mimics real-world advice.
+  
+- 🧠 AI-Powered Insights: The responses are generated using advanced Llama2-based AI agents that learn and adapt over time.
+- 🔄 Decentralized AI Clustering: Use multiple agent clusters to enhance decision-making through a dynamic network of nodes.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How It Works
+FinTwin Advisor utilizes the GaiaNet public node to handle requests and provide responses from the digital twin agents. Users can select their preferred advisor and ask questions on various topics related to finance, investment, and wealth management. The system sends the user's queries to the appropriate AI agent, and responses are returned in real-time.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Workflow
+- User selects either Warren Buffett or Ray Dalio as their advisor.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- User asks a question, such as “What is your advice on long-term investing?”
 
-## Learn More
+- The system routes the question to the selected advisor's AI twin, generating personalized advice based on the persona of that financial expert.
 
-To learn more about Next.js, take a look at the following resources:
+- The user receives the AI-generated financial insights.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/finance-guide.git
 
-## Deploy on Vercel
+2. Navigate into the project directory:
+   ```bash
+   cd finance-guide
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Install the dependencies:
+   ```bash
+   npm install
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Start the dev server:
+   ```bash
+   npm run dev
+
+
+## Contributing
+We welcome contributions to enhance the functionality of FinTwin Advisor! Feel free to open a pull request or raise issues for any bugs or feature requests.
+
