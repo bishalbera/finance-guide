@@ -4,6 +4,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
+interface DataPoint {
+  x: number;
+  y: number;
+  r: number;
+  color: string;
+}
+
 export function PlaceholdersAndVanishInput({
   placeholders,
   onChange,
@@ -14,13 +21,14 @@ export function PlaceholdersAndVanishInput({
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) {
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
-
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
   const startAnimation = () => {
     intervalRef.current = setInterval(() => {
       setCurrentPlaceholder((prev) => (prev + 1) % placeholders.length);
     }, 3000);
   };
+
   const handleVisibilityChange = () => {
     if (document.visibilityState !== "visible" && intervalRef.current) {
       clearInterval(intervalRef.current); // Clear the interval when the tab is not visible
@@ -43,7 +51,7 @@ export function PlaceholdersAndVanishInput({
   }, [placeholders]);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const newDataRef = useRef<any[]>([]);
+  const newDataRef = useRef<DataPoint[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState("");
   const [animating, setAnimating] = useState(false);
@@ -67,7 +75,7 @@ export function PlaceholdersAndVanishInput({
 
     const imageData = ctx.getImageData(0, 0, 800, 800);
     const pixelData = imageData.data;
-    const newData: any[] = [];
+    const newData: DataPoint[] = [];
 
     for (let t = 0; t < 800; t++) {
       let i = 4 * t * 800;
@@ -81,23 +89,16 @@ export function PlaceholdersAndVanishInput({
           newData.push({
             x: n,
             y: t,
-            color: [
-              pixelData[e],
-              pixelData[e + 1],
-              pixelData[e + 2],
-              pixelData[e + 3],
-            ],
+            r: 1,
+            color: `rgba(${pixelData[e]}, ${pixelData[e + 1]}, ${
+              pixelData[e + 2]
+            }, ${pixelData[e + 3]})`,
           });
         }
       }
     }
 
-    newDataRef.current = newData.map(({ x, y, color }) => ({
-      x,
-      y,
-      r: 1,
-      color: `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})`,
-    }));
+    newDataRef.current = newData;
   }, [value]);
 
   useEffect(() => {
@@ -107,11 +108,10 @@ export function PlaceholdersAndVanishInput({
   const animate = (start: number) => {
     const animateFrame = (pos: number = 0) => {
       requestAnimationFrame(() => {
-        const newArr: typeof newDataRef.current = [];
+        const newArr: DataPoint[] = [];
         for (let i = 0; i < newDataRef.current.length; i++) {
           const current = newDataRef.current[i];
           if (current.x < pos) {
-
             newArr.push(current);
           } else {
             if (current.r <= 0) {
@@ -130,7 +130,7 @@ export function PlaceholdersAndVanishInput({
         if (ctx) {
           ctx.clearRect(pos, 0, 800, 800);
           newDataRef.current.forEach((t) => {
-            const { x: n, y: i, r: s, color: color } = t;
+            const { x: n, y: i, r: s, color } = t;
             if (n > pos) {
               ctx.beginPath();
               ctx.rect(n, i, s, s);
