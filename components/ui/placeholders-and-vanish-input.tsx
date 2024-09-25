@@ -111,6 +111,8 @@ export function PlaceholdersAndVanishInput({
         for (let i = 0; i < newDataRef.current.length; i++) {
           const current = newDataRef.current[i];
           if (current.x < pos) {
+            // @ts-ignore
+
             newArr.push(current);
           } else {
             if (current.r <= 0) {
@@ -120,6 +122,8 @@ export function PlaceholdersAndVanishInput({
             current.x += Math.random() > 0.5 ? 1 : -1;
             current.y += Math.random() > 0.5 ? 1 : -1;
             current.r -= 0.05 * Math.random();
+            // @ts-ignore
+
             newArr.push(current);
           }
         }
