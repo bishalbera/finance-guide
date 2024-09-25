@@ -38,6 +38,14 @@ export const POST = async (req: NextRequest) => {
         body: JSON.stringify(payload),
       }
     );
+    if (!res.ok) {
+      const text = await res.text(); 
+      console.error(`Error: ${res.status} - ${text}`);
+      return NextResponse.json(
+        { error: `Failed to fetch: ${res.status} ${res.statusText}` },
+        { status: res.status }
+      );
+    }
     const data = await res.json();
     return NextResponse.json({ response: data.choices[0].message.content });
   } catch (error) {

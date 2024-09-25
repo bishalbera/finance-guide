@@ -123,9 +123,9 @@ const AdvisePage = () => {
     return (
 
 
-        <div className="h-[100dvh] w-[100dvw]">
-            <div className="absolute z-10 top-0 left-0 bg-[url('https://www.bypeople.com/wp-content/uploads/2019/11/cool-backgrounds-hd-vector-pack-deals-bypeople-featured.jpg')] bg-cover bg-center h-[100dvh] w-[100dvw] flex items-center justify-center bg-no-repeat"></div>
-            <div className="relative z-20 h-full w-full bg-white/[0.2] backdrop-blur-lg">
+        <div className="min-h-screen w-full p-4">
+            <div className="absolute z-10 top-0 left-0 bg-[url('https://www.bypeople.com/wp-content/uploads/2019/11/cool-backgrounds-hd-vector-pack-deals-bypeople-featured.jpg')] bg-cover bg-center min-h-screen w-full flex items-center justify-center bg-no-repeat"></div>
+            <div className="relative z-20 min-h-screen w-full bg-white/[0.2] backdrop-blur-lg">
                 {
                     !chat.length ? ( /* If no response */
                         <>
@@ -169,7 +169,7 @@ const AdvisePage = () => {
                                     </div>
 
                                     { /* Bottom */}
-                                    <div className="mb-10 flex flex-col gap-20">
+                                    <div className="mb-10 flex flex-col gap-20 pt-[10rem]">
                                         <div className="flex justify-center gap-20">
                                             <div className="bg-white rounded-3xl p-10 max-w-[320px] cursor-pointer shadow-xl" onClick={() => handleExamplePromptClick("What are the best investment strategies?", "warren_buffett")}>
                                                 <p className="text-[#464646] text-lg">
@@ -196,7 +196,7 @@ const AdvisePage = () => {
                                                 </span>
                                             </div>
                                         </div>
-                                        <div>
+                                        <div className="mt-20">
                                             <PlaceholdersAndVanishInput
                                                 placeholders={placeholders}
                                                 onChange={handleChange}
@@ -213,10 +213,10 @@ const AdvisePage = () => {
                         <>
                             <div className="h-full w-full flex flex-col justify-end gap-5">
                                 <div className="h-full max-h-[95%] w-full flex flex-col items-center justify-end shadow-inner">
-                                    <div className="h-10/12 w-full max-w-[800px] flex flex-col justify-end">
+                                    <div className="h-10/12 w-full max-w-[800px] flex flex-col justify-end pt-10">
                                         {
                                             chat.map((chat, index) => (
-                                                <div key={index} className={`flex flex-row w-full gap-2 ${chat.role === "user" ? "justify-end" : "justify-start"} mb-4`}>
+                                                <div key={index} className={`flex flex-row w-full gap-2 ${chat.role === "user" ? "justify-end" : "justify-start"} mb-4 pt-10`}>
                                                     <div className={`p-4 rounded-2xl shadow-lg ${chat.role === "user" ? "bg-[#464646] text-white rounded-tr-none" : "bg-[#f0f0f0] text-[black] rounded-tl-none"}`}>
                                                         {
                                                             chat.role === "ai" ? (
