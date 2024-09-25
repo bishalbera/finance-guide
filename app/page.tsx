@@ -202,6 +202,7 @@ const AdvisePage = () => {
                                                 onChange={handleChange}
                                                 onSubmit={handleOnSubmit}
                                             />
+                                            <p className="text-sm text-white text-center mt-2">This is an AI agent. It can make mistakes.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -241,10 +242,13 @@ const AdvisePage = () => {
                                         onSubmit={handleOnSubmit}
                                     />
                                 </div>
+
                             </div>
                         </>
                     )
+
                 }
+
             </div>
         </div>
     );
