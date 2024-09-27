@@ -126,10 +126,7 @@ const AdvisePage = () => {
         <div className="min-h-screen w-full p-4">
             <div className="absolute z-10 top-0 left-0 bg-[url('https://www.bypeople.com/wp-content/uploads/2019/11/cool-backgrounds-hd-vector-pack-deals-bypeople-featured.jpg')] bg-cover bg-center min-h-screen w-full flex items-center justify-center bg-no-repeat"></div>
             <div className="relative z-20 min-h-screen w-full bg-white/[0.2] backdrop-blur-lg">
-                {
-                    !chat.length ? ( /* If no response */
-                        <>
-                            <div className="h-full flex flex-col items-center justify-center pt-4">
+
                                 <div className="absolute top-4 left-4">
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild className="w-48">
@@ -154,6 +151,10 @@ const AdvisePage = () => {
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                 </div>
+                {
+                    !chat.length ? ( /* If no response */
+                        <>
+                            <div className="h-full flex flex-col items-center justify-center pt-4">
                                 <div className="h-full w-full flex flex-col justify-between">
                                     { /* Top */}
                                     <div className="flex flex-col items-center gap-2 mt-28">
